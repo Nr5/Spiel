@@ -18,77 +18,67 @@ public class map {
 	public mapField field[][] = new mapField[1000][1000];
 	String s[][] = new String[1000][1000];
 	public int height = 0;
-    public int width = 0;
-    public BufferedImage image = new BufferedImage(5000, 5000, 1);    
-    public BufferedImage tile;    
-    public BufferedImage gr;    
-    public BufferedImage sa;    
-    public BufferedImage st;    
-    public BufferedImage X_wa;    
-	
+	public int width = 0;
+	public BufferedImage image = new BufferedImage(5000, 5000, 1);    
+	public BufferedImage tile;    
+	public BufferedImage gr;    
+	public BufferedImage sa;    
+	public BufferedImage st;    
+	public BufferedImage X_wa;    
+
     
+	public Graphics2D g2d = image.createGraphics();
     
-    
-    
-    public Graphics2D g2d = image.createGraphics();
-    
-       public map(String file) {
+	public map(String file) {
     	loadTiles();
     	try {
-		FileReader read = new FileReader(file);
-		BufferedReader br = new BufferedReader(read);
-		
-		int i = 0;
-		int j = 0;
-		
-        do {
-		   s[0][i] = br.readLine();
-		
-
-		  if (s[0][i] != null) 
-		  {
-			  String spalte[] = s[0][i].split(",");
+			FileReader read = new FileReader(file);
+			BufferedReader br = new BufferedReader(read);
+			
+			int i = 0;
+			int j = 0;
+			
+	        do {
+	        	s[0][i] = br.readLine();
+			
 	
-			  for (j=0;j<spalte.length;j++){
-				s[j][i] = spalte[j].replace(String.valueOf((char)34),"");  
-				field [j][i] = new mapField(s[j][i]);
-			  
-		   		if (s[j][i].charAt(0)=='g')   tile =gr;
-		   		if (s[j][i].charAt(1)=='a')   tile =sa;
-		   		if (s[j][i].charAt(1)=='t')   tile =st;
-		   		if (s[j][i].charAt(0)=='X')   tile =X_wa;
-		   		
-		   		g2d.drawImage(tile,convert.px(new Point(j,i)).x+2500, convert.px(new Point(j,i)).y, null);
-    
-			  
-			  
-			  }
-		  
-		  }
-
-		   
-		   
-		   
-		   i = i + 1;
-        }while (s[0][i-1] != null); 
-        System.out.println(s[1][1]);
-        
-		
-		
-        
-        
-        
-        
-        
-        br.close();
-		height = i;
-		width  = j;
-       	
+	        	if (s[0][i] != null) {
+        	   		String spalte[] = s[0][i].split(",");
+	        	
+	        		for (j=0;j<spalte.length;j++){
+	        			s[j][i] = spalte[j].replace(String.valueOf((char)34),"");  
+	        			field [j][i] = new mapField(s[j][i]);
+				  
+	        			if (s[j][i].charAt(0)=='g')   tile =gr;
+	        			if (s[j][i].charAt(1)=='a')   tile =sa;
+	        			if (s[j][i].charAt(1)=='t')   tile =st;
+	        			if (s[j][i].charAt(0)=='X')   tile =X_wa;
+			   		
+	        			g2d.drawImage(
+			   				tile,
+			   				convert.px(new Point(j,i)).x+2500, 
+			   				convert.px(new Point(j,i)).y,
+			   				null
+		   				);
+	    		  
+	        		}
+	        	}
+        		i = i + 1;
+	        } 
+	        while (s[0][i-1] != null); 
+        	
+	        System.out.println(s[1][1]);
+            
+	        br.close();
+			height = i;
+			width  = j;
+	       	
        	}
-		
-		   catch (FileNotFoundException ex) {System.out.println("Error: map "+"'"+file+"'"+" not found!");  } 
-		
-		   catch (IOException ex) {	System.out.println("Error");
+		catch (FileNotFoundException ex) {
+			System.out.println("Error: map "+"'"+file+"'"+" not found!");  
+		} 
+		catch (IOException ex) {
+			System.out.println("Error");
 		}
     	
 

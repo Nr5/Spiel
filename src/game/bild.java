@@ -1,4 +1,4 @@
-	package game;
+package game;
 
 import java.awt.AWTException;
 import java.awt.Color;
@@ -65,81 +65,113 @@ public class bild extends JPanel{
 	
 	
 	public void paint(Graphics g){
-     super.paint(g);
-
-     
-     double str_x= (400-mappos.x-screen.player.px_x);
-     double str_y= (300-mappos.y-screen.player.px_y);
-
-     double strecke1 =  Math.hypot(str_x*.75, str_y);
-     double strecke2 =  Math.hypot(str_x, str_y);
-
-	if (strecke1 > 150)
-     { 
-		mappos.y += (int) ( (str_y / strecke2)*(strecke1-150)   );
-		mappos.x += (int) ( (str_x / strecke2)*(strecke1-150)   );
-		
-	if(mouse.getPos().x+mappos.x>114&&mouse.getPos().x+mappos.x<908&&mouse.getPos().y+mappos.y>86&&mouse.getPos().y+mappos.y<680)	rob.mouseMove(mouse.getPos().x+mappos.x+  (int) ((str_x / strecke2)*(strecke1-150) ),	mouse.getPos().y+mappos.y+ (int) ( (str_y / strecke2)*(strecke1-150) ));
-     }
-     
- 
-     //Karte
-    		 g.drawImage(screen.karte.image,mappos.x-2500,mappos.y, null);
-     
-     
-     
-     //---------------------------------------------
-     		 
-     
-     
-     // Person malen!
-     //Point personFeld = convert.mapKoordinate(new Point((int) screen.player.px_x,(int) screen.player.px_y));
-	 //int x = convert.pxKoordinate(personFeld).x;
-	 //int y = convert.pxKoordinate(personFeld).y;
-	 //int size = 13;
-	 //int [] eckenX = {x, x - size, x, x + size}; 
-	 //int [] eckenY = {y - size, y, y + size, y}; 
-	 //g.setColor(Color.BLUE); 
-	 //g.fillPolygon(eckenX,	eckenY,	4);
-	 //---------------------------------------------
-			
-
-	// Zielmarkierung
- 	if (mouse.clicked == true) 	 g.drawImage(click,mouse.ms.x +  mappos.x -20  ,  (int)   mouse.ms.y +  mappos.y -15,null);	
- 	
- 	if (mouse.clicked == true) 	{
- 		Point p = new Point (convert.px(convert.map(new Point(mouse.ms.x-screen.karte.height*20-20,mouse.ms.y))).x +screen.karte.height*20-20, convert.px(convert.map(new Point(mouse.ms.x-screen.karte.height*20-20,mouse.ms.y))).y);
-
-
-g.setColor(Color.white);
- 		
- 		g.drawString(""+mappos.x+" , "+mappos.y,10,10);
-
-g.drawLine(p.x+20,p.y   , p.x+40,p.y+15);
-g.drawLine(p.x+20,p.y   , p.x   ,p.y+15);
-g.drawLine(p.x+20,p.y+30, p.x+40,p.y+15);
-g.drawLine(p.x+20,p.y+30, p.x   ,p.y+15);
-
-
-
- 	}
-			 
-	// Spieler
-    		 g.drawImage(screen.player.look,(int) (screen.player.px_x + mappos.x)-screen.player.look.getWidth()/2,  (int)(   screen.player.px_y   +  mappos.y)-screen.player.look.getWidth()+15 ,  screen.player.look.getWidth(),   screen.player.look.getHeight(), null);
-    		  
-    // Feinde
-	for (int i = 0;i< screen.enemies.size();i++){
-		 g.drawImage(screen.enemies.get(i).look,(int) (screen.enemies.get(i).px_x + mappos.x)-screen.enemies.get(i).look.getWidth()/2,  (int)(   screen.enemies.get(i).px_y   +  mappos.y)-screen.enemies.get(i).look.getWidth()+15 ,  screen.enemies.get(i).look.getWidth(),   screen.enemies.get(i).look.getHeight(), null);
+	     super.paint(g);
 	
+	     
+	     double str_x= (400-mappos.x-screen.player.px_x);
+	     double str_y= (300-mappos.y-screen.player.px_y);
+	
+	     double strecke1 =  Math.hypot(str_x*.75, str_y);
+	     double strecke2 =  Math.hypot(str_x, str_y);
+	
+		if (strecke1 > 150) {
+			
+			mappos.y += (int) ( (str_y / strecke2)*(strecke1-150)   );
+			mappos.x += (int) ( (str_x / strecke2)*(strecke1-150)   );
+			
+			if(mouse.getPos().x+mappos.x>114
+				&&mouse.getPos().x+mappos.x<908
+				&&mouse.getPos().y+mappos.y>86
+				&&mouse.getPos().y+mappos.y<680) {	
+				rob.mouseMove(
+						mouse.getPos().x+mappos.x+  (int) ((str_x / strecke2)*(strecke1-150) ),	
+						mouse.getPos().y+mappos.y+ (int) ( (str_y / strecke2)*(strecke1-150) )
+				);
+			}
+	     }
+	     
+	 
+	     //Karte
+		 g.drawImage(screen.karte.image,mappos.x-2500,mappos.y, null);
+	     
+	     
+	     
+	     //---------------------------------------------
+	     		 
+	     
+	     
+	     // Person malen!
+	     //Point personFeld = convert.mapKoordinate(new Point((int) screen.player.px_x,(int) screen.player.px_y));
+		 //int x = convert.pxKoordinate(personFeld).x;
+		 //int y = convert.pxKoordinate(personFeld).y;
+		 //int size = 13;
+		 //int [] eckenX = {x, x - size, x, x + size}; 
+		 //int [] eckenY = {y - size, y, y + size, y}; 
+		 //g.setColor(Color.BLUE); 
+		 //g.fillPolygon(eckenX,	eckenY,	4);
+		 //---------------------------------------------
+				
+		// Zielmarkierung: Draw a Circle: The name of the circle is "click"
+	 	if (mouse.clicked == true) {
+	 		g.drawImage(click,
+	 				mouse.ms.x + mappos.x -20,
+	 				mouse.ms.y + mappos.y -15,
+	 				null
+				);	
+	 	}
+	 	/*
+	 	if (mouse.clicked == true) 	{
+	 		int mousePixelX = mouse.ms.x;
+	 		int mousePixelY = mouse.ms.y;
+	 		
+	 		int myX = mappos.x + convert.px(convert.map(new Point(mousePixelX,mousePixelY))).x;
+	 		int myY = mappos.y + convert.px(convert.map(new Point(mousePixelX,mousePixelY))).y;
+	 		Point p = new Point (myX, myY);
+	 		
+	 		//myX = myX - mappos.x;
+	 		//myY = myY - mappos.y;
+	 		
+	
+	
+			g.setColor(Color.white);
+			 		
+	// 		g.drawString(""+mappos.x+" , "+mappos.y,10,10);
+			
+			g.drawLine(p.x+20,p.y   , p.x+40,p.y+15);
+			g.drawLine(p.x+20,p.y   , p.x   ,p.y+15);
+			g.drawLine(p.x+20,p.y+30, p.x+40,p.y+15);
+			g.drawLine(p.x+20,p.y+30, p.x   ,p.y+15);
+	
+	 	}*/
+				 
+		// Spieler
+	    g.drawImage(
+	    		screen.player.look,
+	    		(int) (screen.player.px_x + mappos.x) - screen.player.look.getWidth()/2,  
+	    		(int) (screen.player.px_y + mappos.y) - screen.player.look.getWidth()+15 ,  
+	    		screen.player.look.getWidth(),
+	    		screen.player.look.getHeight(),
+	    		null
+    		);
+	    		  
+	    // Feinde
+		for (int i = 0;i< screen.enemies.size();i++){
+			 g.drawImage(screen.enemies.get(i).look,
+					 (int) (screen.enemies.get(i).px_x + mappos.x)-screen.enemies.get(i).look.getWidth()/2,  
+					 (int)(   screen.enemies.get(i).px_y   +  mappos.y)-screen.enemies.get(i).look.getWidth()+15, 
+					screen.enemies.get(i).look.getWidth(),   
+					screen.enemies.get(i).look.getHeight(), 
+					null);
+		
+		}
+	 	
+	 	//---------------------------------------------
+	    
+	 
+	 		
+	
+	
+	    
+	    
 	}
- 	
- 	//---------------------------------------------
-    
- 
- 		
-
-
-    
-    
-}
 }

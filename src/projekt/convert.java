@@ -3,28 +3,64 @@ package projekt;
 import java.awt.Point;
 
 public class convert {
-
+		
+	/**
+	 * Return the pixel coordinates from the Map Coordinates
+	 * 
+	 * @param k
+	 * @return
+	 */
 	public static Point px(Point k){
+	    System.out.println("Map-coordinate: k [" + k.x + "  " + k.y + "]");
+	    double distance = Math.hypot(k.x, k.y);
 
-	return (new Point( (k.x)*20 - (k.y)*20,(k.y)*15 + (k.x)*15 ));
-	
+	    double angleX = Math.acos(k.x / distance);
+	    double angleNewX = angleX - Math.acos(0.8);
+	    double pixelX = Math.cos(angleNewX) * distance;
+	    int mapX = (int)(pixelX * 20);
+	    
+	    ////
+	    double angleY = Math.asin(k.y / distance);
+	    double angleNewY = angleY - Math.asin(0.8);
+	    double pixelY = Math.sin(angleNewY) * distance;
+	    int mapY = (int)(pixelY * 15);
+	    
+	    System.out.println("results (angleX "+angleX+") in Pixel ["+ mapX + "  " + mapY + "]");
+
+	    Point resultPoint = new Point(mapX, mapY);
+	    return resultPoint;
 	}
 	
-
 	
+	/**
+	 * Return the map coordinates from the Pixel Coordinates
+	 * 
+	 * @param Point k
+	 * @return
+	 */
 	public static Point map(Point k){
-		
-		int x = k.x;
-	    int y = k.y;
+		//int newX = (int) (((k.x*.75* Math.cos(36.9) - (k.y)* Math.sin(36.9))/40));
+	    //int newY = (int) (((k.x*.75* Math.sin(36.9) + (k.y)* Math.cos(36.9))/40));
 	    
-	    k.x =  (int) (((x*.75* Math.cos(36.9) - (y)* Math.sin(36.9))/40));
-		k.y =  (int) (((x*.75* Math.sin(36.9) + (y)* Math.cos(36.9))/40));
+	    double distance = Math.hypot(k.x, k.y);
+	    
 
-return (k);
+	    double angleX = Math.acos(k.x / distance);
+	    double angleNewX = angleX + Math.acos(0.5);
+	    double pixelX = Math.cos(angleNewX) * distance;
+	    int mapX = (int)(pixelX / 20);
+	    
+	    ////
+	    double angleY = Math.asin(k.y / distance);
+	    double angleNewY = angleY - Math.asin(0.5);
+	    double pixelY = Math.sin(angleNewY) * distance;
+	    int mapY = (int)(pixelY / 15);
+	    
 
+		System.out.println("Pixel: k [" + k.x + "  " + k.y + "] results in Map coordinate ["+ mapX + "  " + mapY + "]");
+			    
+	    Point resultPoint = new Point(mapX, mapY);
+		return resultPoint;
+	}
 
-}
-
-	
-	
 }

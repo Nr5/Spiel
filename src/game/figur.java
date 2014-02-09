@@ -114,14 +114,15 @@ while (true) {
 
 
 private void getZiel() {
+	/**
+	 * If the distance to the target is smaller than 100 pixel(?), don't walk!
+	 */
 	if (Math.hypot((screen.player.px_x-px_x),(screen.player.px_y-px_y))<100){
 
-		if(agressive){
+		if(agressive) {
 			ziel.x =	(int) screen.player.px_x;
 			ziel.y =	(int) screen.player.px_y;
-		}
-
-		else{
+		} else {
 			ziel.x = (int) (px_x + (px_x-screen.player.px_x));
 			ziel.y = (int) (px_y + (px_y-screen.player.px_y));
 		}
@@ -190,11 +191,13 @@ private void load(String path) {
 	look = image[0];
 	}  catch (IOException e) {System.out.println("Character data not found '"+path+"'");}
 
-	sound[0] = new AudioInput("monster/"+path+"_bored.wav"  );
-	sound[1] = new AudioInput("monster/"+path+"_defense.wav");
-	sound[2] = new AudioInput("monster/"+path+"_attack.wav" );
-	sound[3] = new AudioInput("monster/"+path+"_die.wav"    );
-	
+	boolean soundIsActive = false;
+	if (soundIsActive) {
+		sound[0] = new AudioInput("monster/"+path+"_bored.wav"  );
+		sound[1] = new AudioInput("monster/"+path+"_defense.wav");
+		sound[2] = new AudioInput("monster/"+path+"_attack.wav" );
+		sound[3] = new AudioInput("monster/"+path+"_die.wav"    );
+	}
 
 }
 

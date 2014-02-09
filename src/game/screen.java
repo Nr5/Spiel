@@ -29,12 +29,12 @@ public class screen extends JPanel {
 	    add(spielfeld);
 	    setBackground(Color.black);
 	    enemies.add(new figur("pigeon",new Point(33,30) ));
-	    enemies.add(new figur("player",new Point(23,30) ));
-	    enemies.add(new figur("player",new Point(23,30) ));
+	    //enemies.add(new figur("player",new Point(23,30) ));
+	    //enemies.add(new figur("player",new Point(23,30) ));
 
-	    enemies.add(new figur("pigeon",new Point(43,30) ));
-	    enemies.add(new figur("pigeon",new Point(33,40) ));
-	    enemies.add(new figur("pigeon",new Point(33,20) ));
+	    //enemies.add(new figur("pigeon",new Point(43,30) ));
+	    //enemies.add(new figur("pigeon",new Point(33,40) ));
+	    //enemies.add(new figur("pigeon",new Point(33,20) ));
 
 	}
 
@@ -57,10 +57,10 @@ public class screen extends JPanel {
 	public void paint(Graphics g){
 		super.paint(g);
 
-g.setColor(Color.darkGray); g. drawRect(108,80,804,604);
-g.setColor(Color.darkGray); g. drawRect(109,81,803,603);
-g.setColor(Color.darkGray); g. drawRect(110,82,802,602);
-g.setColor(Color.darkGray); g. drawRect(111,83,801,601);
+g.setColor(Color.darkGray); g.drawRect(108,80,804,604);
+g.setColor(Color.darkGray); g.drawRect(109,81,803,603);
+g.setColor(Color.darkGray); g.drawRect(110,82,802,602);
+g.setColor(Color.darkGray); g.drawRect(111,83,801,601);
 
 
 g.setColor(Color.darkGray); g.drawRect(29,29,50,30);
