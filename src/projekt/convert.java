@@ -11,21 +11,20 @@ public class convert {
 	 * @return
 	 */
 	public static Point px(Point k){
-	    System.out.println("Map-coordinate: k [" + k.x + "  " + k.y + "]");
 	    double distance = Math.hypot(k.x, k.y);
 
 	    double angleX = Math.acos(k.x / distance);
 	    double angleNewX = angleX - Math.acos(0.8);
 	    double pixelX = Math.cos(angleNewX) * distance;
-	    int mapX = (int)(pixelX * 20);
+	    int mapX = (int)(pixelX * 25);
 	    
 	    ////
-	    double angleY = Math.asin(k.y / distance);
+	    double angleY = Math.acos(k.x / distance);
 	    double angleNewY = angleY - Math.asin(0.8);
 	    double pixelY = Math.sin(angleNewY) * distance;
-	    int mapY = (int)(pixelY * 15);
+	    int mapY = (int)(pixelY * 15) - 25;
 	    
-	    System.out.println("results (angleX "+angleX+") in Pixel ["+ mapX + "  " + mapY + "]");
+	    //System.out.println("Map-coordinate: k [" + k.x + "  " + k.y + "] results (angleX "+angleX+") in Pixel ["+ mapX + "  " + mapY + "]");
 
 	    Point resultPoint = new Point(mapX, mapY);
 	    return resultPoint;
@@ -48,16 +47,16 @@ public class convert {
 	    double angleX = Math.acos(k.x / distance);
 	    double angleNewX = angleX + Math.acos(0.5);
 	    double pixelX = Math.cos(angleNewX) * distance;
-	    int mapX = (int)(pixelX / 20);
+	    int mapX = (int)(pixelX / 25);
 	    
 	    ////
-	    double angleY = Math.asin(k.y / distance);
+	    double angleY = Math.acos(k.y / distance);
 	    double angleNewY = angleY - Math.asin(0.5);
-	    double pixelY = Math.sin(angleNewY) * distance;
+	    double pixelY = Math.cos(angleNewY) * distance;
 	    int mapY = (int)(pixelY / 15);
 	    
 
-		System.out.println("Pixel: k [" + k.x + "  " + k.y + "] results in Map coordinate ["+ mapX + "  " + mapY + "]");
+//		System.out.println("Pixel: k [" + k.x + "  " + k.y + "] results in Map coordinate ["+ mapX + "  " + mapY + "]");
 			    
 	    Point resultPoint = new Point(mapX, mapY);
 		return resultPoint;

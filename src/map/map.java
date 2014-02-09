@@ -57,7 +57,7 @@ public class map {
 	        			g2d.drawImage(
 			   				tile,
 			   				convert.px(new Point(j,i)).x+2500, 
-			   				convert.px(new Point(j,i)).y,
+			   				convert.px(new Point(j,i)).y+1000,
 			   				null
 		   				);
 	    		  

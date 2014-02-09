@@ -9,13 +9,16 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import map.SmartRouting;
+import map.StupidRouting;
+
 import projekt.convert;
-
-
 
 public class bild extends JPanel{
 	
@@ -92,7 +95,11 @@ public class bild extends JPanel{
 	     
 	 
 	     //Karte
-		 g.drawImage(screen.karte.image,mappos.x-2500,mappos.y, null);
+		 g.drawImage(
+				 screen.karte.image,
+				 mappos.x-2500,
+				 mappos.y-1000,
+				 null);
 	     
 	     
 	     
@@ -118,31 +125,46 @@ public class bild extends JPanel{
 	 				mouse.ms.y + mappos.y -15,
 	 				null
 				);	
+	 		//System.out.println("clicked on [" + mouse.ms.x + " " + mouse.ms.y+ "] via [ " + mappos.x + " "+ mappos.y + "]");
 	 	}
-	 	/*
+	 	
 	 	if (mouse.clicked == true) 	{
-	 		int mousePixelX = mouse.ms.x;
-	 		int mousePixelY = mouse.ms.y;
-	 		
-	 		int myX = mappos.x + convert.px(convert.map(new Point(mousePixelX,mousePixelY))).x;
-	 		int myY = mappos.y + convert.px(convert.map(new Point(mousePixelX,mousePixelY))).y;
-	 		Point p = new Point (myX, myY);
-	 		
-	 		//myX = myX - mappos.x;
-	 		//myY = myY - mappos.y;
-	 		
-	
-	
+			int mousePixelX = mouse.ms.x + mappos.x;
+			int mousePixelY = mouse.ms.y + mappos.y;			
+			Point currentPosition = convert.map(new Point((int)screen.player.px_x + mappos.x, (int)screen.player.px_y + mappos.y));
+			Point currentTarget = convert.map(new Point(mousePixelX,mousePixelY));
+			/**
+			 * Now find a good way to get there :)
+			 */
+			List<Point> bestRoute = new ArrayList<Point>();
+			StupidRouting stupid = new StupidRouting();
+			bestRoute = stupid.recursiveSearchStart(currentPosition, currentTarget);
+			for (Point p : bestRoute) {
+				g.setColor(Color.red);
+				drawFrame(g, convert.px(p));
+			}
+			/**
+			 * Now find a way to get there, where you actually can go!
+			 */
+			SmartRouting smart = new SmartRouting();
+			bestRoute = smart.recursiveSearchStart(currentPosition, currentTarget);
+			for (Point p : bestRoute) {
+				g.setColor(Color.white);
+				drawFrame(g, convert.px(p));
+			}
+		    /**
+		     * draw the TARGET FIELD
+		     */
 			g.setColor(Color.white);
-			 		
-	// 		g.drawString(""+mappos.x+" , "+mappos.y,10,10);
-			
-			g.drawLine(p.x+20,p.y   , p.x+40,p.y+15);
-			g.drawLine(p.x+20,p.y   , p.x   ,p.y+15);
-			g.drawLine(p.x+20,p.y+30, p.x+40,p.y+15);
-			g.drawLine(p.x+20,p.y+30, p.x   ,p.y+15);
-	
-	 	}*/
+			drawFrame(g, convert.px(currentTarget));
+
+			/**
+			 * Draw the current position field
+			 */
+			g.setColor(Color.white);
+			drawFrame(g, convert.px(currentPosition));
+
+	 	}
 				 
 		// Spieler
 	    g.drawImage(
@@ -174,4 +196,13 @@ public class bild extends JPanel{
 	    
 	    
 	}
+
+	public void drawFrame(Graphics g, Point p1) {
+		System.out.println("Drawing frame: " + p1.x + "  " + p1.y);
+		g.drawLine(p1.x+20,p1.y   , p1.x+40,p1.y+15);
+		g.drawLine(p1.x+20,p1.y   , p1.x   ,p1.y+15);
+		g.drawLine(p1.x+20,p1.y+30, p1.x+40,p1.y+15);
+		g.drawLine(p1.x+20,p1.y+30, p1.x   ,p1.y+15);
+	}
+	
 }
